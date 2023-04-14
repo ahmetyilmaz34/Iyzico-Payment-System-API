@@ -1,0 +1,33 @@
+{
+  "name": "iyzico-payment-system-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx @babel/node",
+    "dev": "babel src --out-dir=./build --copy-files --watch",
+    "build": "babel src --out-dir=./build --copy-files",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmetyilmaz34/Iyzico-Payment-System-API.git"
+  },
+  "author": "Ahmet Yılmaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmetyilmaz34/Iyzico-Payment-System-API/issues"
+  },
+  "homepage": "https://github.com/ahmetyilmaz34/Iyzico-Payment-System-API#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.16.8",
+    "@babel/core": "^7.16.12",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/register": "^7.16.9"
+  },
+  "dependencies": {
+    "iyzipay": "^2.0.48",
+    "nanoid": "^3.2.0"
+  }
+}
