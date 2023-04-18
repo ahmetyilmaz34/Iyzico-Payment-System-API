@@ -1,10 +1,10 @@
 import iyzipay from "../connection/iyzipay";
 
+//! Geri ödeme işlemleri
 
-//! taksit kontrolü
-export const checkInstallment = (data) => {
+export const cancelPayments = (data) => {
     return new Promise((resolve, reject) => {
-        iyzipay.installmentInfo.retrieve(data, (err, result) => {
+        iyzipay.cancel.create(data, (err ,result) => {
             if(err){
                 reject(err)
             }

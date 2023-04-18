@@ -4,5 +4,4 @@ const nanoid = customAlphabet("0123456789abcdefghijklmnoprstvyzABCDEFGHIJKLMNOPR
 
 export default nanoid;
 
-// const id=nanoid();
-// console.log(id);
+
