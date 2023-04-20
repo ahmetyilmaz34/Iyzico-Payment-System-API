@@ -32,4 +32,21 @@ export default (router) => {
         }
         res.json(result)
     })
+
+//! Kart Okuma
+router.get("/cards", Session, async(req,res) => {
+    if(!req.user?.cardUserKey){ // kullanıcının cardUserkey kontrolünü yapmamız gerekiyor. Eğer yoksa hata döndürecek
+        throw new ApiError("User has no credit card", 403, "userHasNoCard")
+    }
+    let cards = await Cards.getUserCards({ //kartları alıyoruz.
+        locale: req.user.locale,
+        conversationId: nanoid(),
+        cardUserKey: req.user?.cardUserKey
+    })
+
+    res.status(200).json(cards);
+})
+
+
+
 }
