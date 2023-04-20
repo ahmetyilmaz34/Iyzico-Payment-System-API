@@ -16,7 +16,7 @@ import Users from './db/users';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import Session from './middlewares/Session';
-
+import routes from './routes/index'; // index dosyasındaki routerları importladık.
 
 
 const envPath = config?.production ? "./env/.prod" : "./env/.dev" // çalışma ortamı
@@ -38,6 +38,12 @@ mongoose.connect(process.env.MONGO_URI, {
 // End mongodb connection
 
 const app = express(); // express app oluşturuldu.
+const router = express.Router() // router oluşturuldu.
+routes.forEach((routeFn, index) => {
+    routeFn(router)
+})
+app.use("/api", router)
+// /api /check ile aynı. 
 
 
 app.use(logger(process.env.LOGGER)); // Logların hepsini göstericek.
@@ -65,12 +71,12 @@ passport.deserializeUser((id, done) => { // token üzerinden id yazmaya çalış
 });
 app.use(passport.initialize())
 
-const jwtOpts = {
+const jwtOpts = {   
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: process.env.JWT_SECRET
 }
 passport.use(
-    new JwtStrategy(
+    new JwtStrategy( 
         jwtOpts,
         async (jwtPayload, done) => {
             try {
