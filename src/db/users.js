@@ -96,8 +96,8 @@ const UsersSchema = new Schema({
     timestamps: true, 
     toJSON:{
         transform: (doc, ret) => { 
-            delete ret.__v;
-            delete ret.password;
+            delete ret.__v; // versiyon kodunu siliyor
+            delete ret.password; // şifreyi siliyor
             return{
                 ...ret
             }

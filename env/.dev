@@ -3,6 +3,7 @@ HTTPS_ENABLED = true
 PORT = 443
 LOGGER = dev 
 MONGO_URI=mongodb+srv://mesken-yonetimi:d7h3oimZyyinhZmY@cluster0.qa73ott.mongodb.net/payments-system-development?retryWrites=true&w=majority
+JWT_SECRET = sdfASfDdFVdbSDShbAsdasbFASDadfbh_sdfv
 END_POINT = https://127.0.0.1/api
 
 

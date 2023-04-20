@@ -9,12 +9,13 @@ import path from 'path';
 import helmet from 'helmet';
 import cors from 'cors';
 import DBModels from './db'
+import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
 import GenericErrorHandler from './middlewares/GenericErrorHandler';
 import ApiError from './error/ApiError';
 import Users from './db/users';
 import mongoose from 'mongoose';
-
-
+import passport from 'passport';
+import Session from './middlewares/Session';
 
 
 
@@ -54,10 +55,54 @@ app.use(express.json({ //Yüksek dosyalar ile sunucuya atak gerçekleştirilmeme
 }))  
 app.use(express.urlencoded({extended:true})); //url parametre okumak için kullanıyoruz.
 
-app.all("/", (req,res) =>{
-    throw new ApiError("Hata oluştu.",404,"something wrong happened");
+
+
+passport.serializeUser((user, done) => {  // tokenı alıyor
+    done(null, user);
+});
+passport.deserializeUser((id, done) => { // token üzerinden id yazmaya çalışıyor.
+    done(null, id)
+});
+app.use(passport.initialize())
+
+const jwtOpts = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.JWT_SECRET
+}
+passport.use(
+    new JwtStrategy(
+        jwtOpts,
+        async (jwtPayload, done) => {
+            try {
+                const user = await Users.findOne({_id: jwtPayload._id}); // kullanıcıyı buluyoruz ve karşılatırıyoruz
+                if (user) {
+                    done(null, user.toJSON())
+                } 
+                else { // hata verdiricez. ApiError ile
+                    done(new ApiError("Autorization is not valid", 401, "authorizationInvalid"), false);
+                }
+            }
+            catch (err) {
+                return done(err, false)
+            }
+        }
+    )
+)
+
+
+
+
+
+// app.all("/", (req,res) =>{
+//     throw new ApiError("Hata oluştu.",404,"something wrong happened");
+//     res.json({
+//         test: 1
+//     })
+// })
+
+app.all("/test-auth", Session, (req,res) =>{
     res.json({
-        test: 1
+        test: true
     })
 })
 
