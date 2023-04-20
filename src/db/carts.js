@@ -90,6 +90,6 @@ Carts.populationTest = async () => {
 //     await Carts.populationTest()
 // });
 
-Carts.populationTest()
+// Carts.populationTest()
 
 export default Carts;
