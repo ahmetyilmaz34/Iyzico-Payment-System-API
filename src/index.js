@@ -5,11 +5,17 @@ import express, { application } from 'express';
 import logger from 'morgan';
 import https from 'https';
 import fs from 'fs';
-import path from 'path';
+import path from 'path';    
 import helmet from 'helmet';
 import cors from 'cors';
+import DBModels from './db'
 import GenericErrorHandler from './middlewares/GenericErrorHandler';
 import ApiError from './error/ApiError';
+import Users from './db/users';
+import mongoose from 'mongoose';
+
+
+
 
 
 const envPath = config?.production ? "./env/.prod" : "./env/.dev" // çalışma ortamı
@@ -19,6 +25,16 @@ dotenv.config({
 // console.log(process.env.DEPLOYMENT);
 // console.log(process.env.HTTPS_ENABLED);
 
+// Begin mongodb connection
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log("Connected to MongoDB");
+}).catch((err) => {
+    console.log(err);
+})
+// End mongodb connection
 
 const app = express(); // express app oluşturuldu.
 
@@ -46,6 +62,8 @@ app.all("/", (req,res) =>{
 })
 
 app.use(GenericErrorHandler); // Genel hata yönetimi
+
+
 
 if(process.env.HTTPS_ENABLED === "true") {
     const key = fs.readFileSync(path.join(__dirname, "./certs/key.pem")).toString();
