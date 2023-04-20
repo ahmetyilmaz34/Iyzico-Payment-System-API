@@ -33,19 +33,34 @@ export default (router) => {
         res.json(result)
     })
 
-//! Kart Okuma
-router.get("/cards", Session, async(req,res) => {
-    if(!req.user?.cardUserKey){ // kullanıcının cardUserkey kontrolünü yapmamız gerekiyor. Eğer yoksa hata döndürecek
-        throw new ApiError("User has no credit card", 403, "userHasNoCard")
-    }
-    let cards = await Cards.getUserCards({ //kartları alıyoruz.
-        locale: req.user.locale,
-        conversationId: nanoid(),
-        cardUserKey: req.user?.cardUserKey
+    //! Kart Okuma
+    router.get("/cards", Session, async (req, res) => {
+        if (!req.user?.cardUserKey) { // kullanıcının cardUserkey kontrolünü yapmamız gerekiyor. Eğer yoksa hata döndürecek
+            throw new ApiError("User has no credit card", 403, "userHasNoCard")
+        }
+        let cards = await Cards.getUserCards({ //kartları alıyoruz.
+            locale: req.user.locale,
+            conversationId: nanoid(),
+            cardUserKey: req.user?.cardUserKey
+        })
+        res.status(200).json(cards);
     })
 
-    res.status(200).json(cards);
-})
+    //! Token ile Kart Silme 
+    router.delete("/cards/delete-by-token", Session, async (req, res) => {
+        const { cardToken } = req.body; // body üzerinden tokenı alıyoruz.
+        if (!cardToken) { // token olmadığı durum hata döndürecek
+            throw new ApiError("Card token is required", 400, "cardTokenRequired");
+        }
+        let deleteResult = await Cards.deleteUserCard({ // Cards methodu içerisindeki deleteUserCard methodunu çağırıyoruz.
+            locale: req.user.locale, //
+            conversationId: nanoid(),
+            cardUserKey: req.user?.cardUserKey,
+            cardToken: cardToken
+        })
+        res.status(200).json(deleteResult)
+    })
+
 
 
 
