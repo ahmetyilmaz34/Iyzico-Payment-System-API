@@ -39,11 +39,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 const app = express(); // express app oluşturuldu.
 const router = express.Router() // router oluşturuldu.
-routes.forEach((routeFn, index) => {
-    routeFn(router)
-})
-app.use("/api", router)
-// /api /check ile aynı. 
+
 
 
 app.use(logger(process.env.LOGGER)); // Logların hepsini göstericek.
@@ -105,6 +101,13 @@ passport.use(
 //         test: 1
 //     })
 // })
+
+
+routes.forEach((routeFn, index) => {
+    routeFn(router)
+})
+app.use("/api", router)
+// /api /check ile aynı. 
 
 app.all("/test-auth", Session, (req,res) =>{
     res.json({
