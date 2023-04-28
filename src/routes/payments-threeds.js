@@ -13,7 +13,8 @@ import Iyzipay from "iyzipay";
 export default (router) => {
 
     //! Complete Payment 3D ödemesinin tamamlanması
-    router.post("/threeds/payments/complete", async (req, res) => { // tamamlama modülü olduğundan iyzipaydan istek gelicek o yüzden yetkilendirme olmayacağı çin session arayazılımını vermeye gerek yok direkt bütün internete açık bir mekanizma olacak
+    router.post("/threeds/payments/complete", async (req, res) => { // herkese açık route bu route en tepede olmalı. Hiyerarşik olarak aşağıya doğru routelar yazılır.
+        // tamamlama modülü olduğundan iyzipaydan istek gelicek o yüzden yetkilendirme olmayacağı çin session arayazılımını vermeye gerek yok direkt bütün internete açık bir mekanizma olacak
         if (!req.body?.paymentId) { // post isteği olacapından body den bazı bilgileri alıyoruz. Ödeme idsini alıyoruz.
             throw new ApiError("Payment id is required", 400, "paymentIdReqired"); // hata döndürüyoruz
         }
@@ -286,7 +287,7 @@ export default (router) => {
         res.send(html);
     })
 
-    //! HALİHAZIRDAKİ BİR KARTLA ÖDEME OLUŞTUR VE KARTI KAYDET - THREEDS - CardToken
+    //! HALİ HAZIRDAKİ BİR KARTLA ÖDEME OLUŞTURmA VE KARTI KAYDETMEK - THREEDS - CardToken
     router.post("/threeds/payments/:cartId/with-registered-card-token", Session, async (req, res) => {
         let { cardToken } = req.body;
         if (!cardToken) {
