@@ -12,7 +12,7 @@ import Iyzipay from "iyzipay";
 export default (router) => {
     //! CHECKOUT FORM COMPLETE PAYMENT
     router.post("/checkout/complete/payment", async (req, res) => {
-        let result = await Checkouts.getFormPayment({ // herkese açık route bu route en tepede olmalı. Hiyerarşik olarak aşağıya doğru routelar yazılır.
+        let result = await Checkout.getFormPayment({ // herkese açık route bu route en tepede olmalı. Hiyerarşik olarak aşağıya doğru routelar yazılır.
             locale: "tr",
             conversationId: nanoid(),
             token: req.body.token// iyzipayin bize gönderdiği token bilgisi
@@ -98,7 +98,7 @@ export default (router) => {
 <html>
 <head>
 <title>Ödeme yap </title>
-<meta charset="UTF-8 />
+<meta charset="UTF-8"/>
 </head>
 <body>
 ${result?.checkoutFormContent}
