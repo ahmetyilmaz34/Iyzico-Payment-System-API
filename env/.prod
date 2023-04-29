@@ -1,8 +1,0 @@
-DEPLOYMENT = PRODUCTION
-HTTPS_ENABLED = false
-PORT = 8080
-LOGGER = tiny
-MONGO_URI=mongodb+srv://mesken-yonetimi:d7h3oimZyyinhZmY@cluster0.qa73ott.mongodb.net/payments-system-production?retryWrites=true&w=majority
-JWT_SECRET = sdfASfDdFVdbSDShbAsdasbFASDadfbh_sdfv
-END_POINT = https://127.0.0.1/api
-

@@ -25,9 +25,9 @@ export default (router) => {
         reasonObj.description = description;
     }
     const payment = await PaymentsSuccess.findOne({
-        "itemTransactions.paymentTransactionId": paymentTransactionId
+        "log.itemTransactions.paymentTransactionId": paymentTransactionId
     });
-    const currentItemTransaction = payment.itemTransactions.find((itemTransaction, index) => {
+    const currentItemTransaction = payment.log.itemTransactions.find((itemTransaction, index) => {
         return itemTransaction.paymentTransactionId === paymentTransactionId
     })
 

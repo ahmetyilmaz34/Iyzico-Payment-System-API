@@ -1,15 +1,22 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
-	<title>Ödeme yap </title>
-	<meta charset="UTF-8" />
+	<title>iyzico Mock 3D-Secure Processing Page</title>
 </head>
 
 <body>
-	<script type="text/javascript">
-		if (typeof iyziInit == 'undefined') {var iyziInit = {currency:"TRY",token:"875374be-6fc7-4c21-807f-1ecb7ddb993b",price:41000.00,locale:"tr",baseUrl:"https://sandbox-api.iyzipay.com", merchantGatewayBaseUrl:"https://sandbox-merchantgw.iyzipay.com", registerCardEnabled:true,bkmEnabled:true,bankTransferEnabled:false,bankTransferTimeLimit:{"value":5,"type":"day"},bankTransferRedirectUrl:"https://127.0.0.1/api/checkout/complete/payment",bankTransferCustomUIProps:{},campaignEnabled:false,campaignMarketingUiDisplay:null,paymentSourceName:"",plusInstallmentResponseList:null,payWithIyzicoSingleTab:false,payWithIyzicoOneTab:false,mixPaymentEnabled:true,creditCardEnabled:true,bankTransferAccounts:[],userCards:[{token:"fb3T+LTsIEGhyFDY5Ar9Mv+J0dU=",bin:"55287900",family:"Paraf"},{token:"5PnbZedUnZA61xCmd8ULCahL1n4=",bin:"55287900",family:"Paraf"}],fundEnabled:true,memberCheckoutOtpData:{},force3Ds:false,isSandbox:true,storeNewCardEnabled:true,paymentWithNewCardEnabled:true,enabledApmTypes:["SOFORT","IDEAL","QIWI","GIROPAY"],payWithIyzicoUsed:false,payWithIyzicoEnabled:true,payWithIyzicoCustomUI:{},buyerName:"John",buyerSurname:"Doe",merchantInfo:"",cancelUrl:"",buyerProtectionEnabled:false,hide3DS:false,gsmNumber:"",email:"email@email.com",checkConsumerDetail:{},subscriptionPaymentEnabled:false,ucsEnabled:false,fingerprintEnabled:false,payWithIyzicoFirstTab:false,creditEnabled:false,payWithIyzicoLead:false,goBackUrl:"",metadata : {},createTag:function(){var iyziJSTag = document.createElement('script');iyziJSTag.setAttribute('src','https://sandbox-static.iyzipay.com/checkoutform/v2/bundle.js?v=1682701714104');document.head.appendChild(iyziJSTag);}};iyziInit.createTag();}
-	</script>
+	<form id="iyzico-3ds-form" action="https://sandbox-api.iyzipay.com/payment/mock/init3ds" method="post">
+		<input type="hidden" name="orderId" value="mock12-0344407392457933iyziord">
+		<input type="hidden" name="bin" value="552879">
+		<input type="hidden" name="successUrl" value="https://sandbox-api.iyzipay.com/payment/iyzipos/callback3ds/success/3">
+		<input type="hidden" name="failureUrl" value="https://sandbox-api.iyzipay.com/payment/iyzipos/callback3ds/failure/3">
+		<input type="hidden" name="confirmationUrl" value="https://sandbox-api.iyzipay.com/payment/mock/confirm3ds">
+		<input type="hidden" name="PaReq" value="4c8e99d5-cb7e-4250-86e2-c773ada13532">
+</form>
+		<script type="text/javascript">
+			document.getElementById("iyzico-3ds-form").submit();
+		</script>
 </body>
 
 </html>
