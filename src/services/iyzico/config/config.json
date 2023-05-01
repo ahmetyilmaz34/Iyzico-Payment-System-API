@@ -1,5 +1,5 @@
 {
-    "apiKey":"sandbox-tdqRENrlppWwOTehv16jdzquL13ojlto",
-    "secretKey":"sandbox-HkBB93zXcgetX6NCLMmLsTNH5CNj3a7L",
+    "apiKey":"secret",
+    "secretKey":"secret",
     "uri":"https://sandbox-api.iyzipay.com"
 }
